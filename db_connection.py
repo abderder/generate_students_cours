@@ -9,6 +9,9 @@ def get_connection():
         username = st.secrets["DB_USERNAME"]
         password = st.secrets["DB_PASSWORD"]
 
+        # Debug: Affichage des informations de connexion (sauf le mot de passe)
+        st.write(f"Essai de connexion avec les paramètres : SERVER={server}, DATABASE={database}, USERNAME={username}")
+
         connection = pyodbc.connect(
             'DRIVER={ODBC Driver 17 for SQL Server};'
             f'SERVER={server};'
@@ -16,9 +19,18 @@ def get_connection():
             f'UID={username};'
             f'PWD={password};'
         )
-        print("Connexion réussie à la base de données.")
+        st.write("Connexion réussie à la base de données.")
         return connection
-    except pyodbc.Error as e:
-        print("Erreur lors de la connexion à la base de données :")
-        print(e)
-        return None
+    except pyodbc.InterfaceError as e:
+        st.write("Erreur d'interface (connexion au pilote) :")
+        st.write(e)
+        st.error(f"Erreur d'interface : {e}")
+    except pyodbc.DatabaseError as e:
+        st.write("Erreur liée à la base de données :")
+        st.write(e)
+        st.error(f"Erreur de base de données : {e}")
+    except Exception as e:
+        st.write("Erreur générale lors de la connexion :")
+        st.write(e)
+        st.error(f"Erreur générale : {e}")
+    return None
