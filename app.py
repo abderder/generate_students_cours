@@ -1,9 +1,7 @@
 import streamlit as st
 import pandas as pd
 from db_connection import get_connection  # Import de la fonction de connexion
-from dotenv import load_dotenv
 
-load_dotenv()
 st.title("Analyse et Exportation de Données Étudiantes pour les Cours")
 
 
