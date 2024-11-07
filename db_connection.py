@@ -1,12 +1,13 @@
-import os
 import pyodbc
+import streamlit as st
 
 def get_connection():
     try:
-        server = os.getenv('DB_SERVER', 'default_server')
-        database = os.getenv('DB_DATABASE', 'default_database')
-        username = os.getenv('DB_USERNAME', 'default_username')
-        password = os.getenv('DB_PASSWORD', 'default_password')
+        # Récupération des secrets à partir de Streamlit
+        server = st.secrets["DB_SERVER"]
+        database = st.secrets["DB_DATABASE"]
+        username = st.secrets["DB_USERNAME"]
+        password = st.secrets["DB_PASSWORD"]
 
         connection = pyodbc.connect(
             f'DRIVER={{SQL Server}};'
