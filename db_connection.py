@@ -15,8 +15,6 @@ def get_connection():
             f'DATABASE={database};'
             f'UID={username};'
             f'PWD={password};'
-            'Encrypt=yes;'
-            'TrustServerCertificate=no;'
         )
         print("Connexion réussie à la base de données.")
         return connection
